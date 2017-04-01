@@ -174,19 +174,20 @@ export default class PickerAndroid extends Component{
 		//label was used to display 
 		let upItems = [], middleItems = [], downItems = [];
 		items.forEach((item, index) => {
-
+			console.log('items.forEach(========',this.state.selectedIndex,index)
 			upItems[index] = <Text
 								key={'up'+index}
 								style={[styles.upText, this.state.itemStyle]}
 								onPress={() => {
 									this._moveTo(index);
 								}} >
-								{item.label}
+								{parseInt(this.state.selectedIndex)>index?item.label:''}
 							</Text>;
 
-			middleItems[index] = <Text
+			middleItems[index] =<Text
 									key={'mid'+index}
-									style={[styles.middleText, this.state.itemStyle]}>{item.label}
+									style={[styles.middleText, this.state.itemStyle]}>
+								{parseInt(this.state.selectedIndex)==index?item.label:''}
 								</Text>;
 
 			downItems[index] = <Text
@@ -195,9 +196,8 @@ export default class PickerAndroid extends Component{
 									onPress={() => {
 										this._moveTo(index);
 									}} >
-									{item.label}
+									{parseInt(this.state.selectedIndex)<index?item.label:''}
 								</Text>;
-
 		});
 		return { upItems, middleItems, downItems, };
 	}
@@ -211,6 +211,7 @@ export default class PickerAndroid extends Component{
 	}
 
 	render(){
+		console.log('asdfasdfasdfasdf')
 		let index = this.state.selectedIndex;
 		let length = this.state.items.length;
 		let items = this._renderItems(this.state.items);
